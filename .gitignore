@@ -1,0 +1,25 @@
+# ignore all .  
+.*
+
+# except those below. prepending with ! excludes it from .gitignore   
+!.gitignore
+
+# NB! you can extend with more specifics per project; e.g. node, go, etc etc  
+
+# IntelliJ related
+*.iml
+*.ipr
+*.iws
+
+# Miscellaneous
+*.class
+*.log
+*.pyc
+*.swp
+logs
+
+# Runtime data
+pids
+*.pid
+*.seed
+*.pid.lock
