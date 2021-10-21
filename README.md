@@ -1,6 +1,6 @@
 # Dojo Mini Middleware Platform   
 
-This is a collection of Infrastructure as Code resource which can be used to install, configure and manage the lifecycle of several Oracle Fusion Middleware components.
+This is a collection of Infrastructure as Code resources which can be used to install, configure and manage the lifecycle of several Oracle Fusion Middleware components.
 
 ## Rationale   
 
