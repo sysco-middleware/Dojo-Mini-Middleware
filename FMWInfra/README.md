@@ -16,5 +16,6 @@
 
 
 - Run the playbook as below 
-
+```
     ansible-playbook fmw_install.yml -b -vv
+```
