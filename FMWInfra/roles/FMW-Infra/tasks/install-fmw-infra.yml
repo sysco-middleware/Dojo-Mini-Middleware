@@ -1,0 +1,13 @@
+---
+- name: Find the JDK file
+  shell: "ls {{APP_HOME}}/files/fmw_{{WLS_VERSION}}*_infrastructure.jar"
+  register: FMW_JAR
+
+- name: Install WLS
+  become: yes
+  become_user: '{{WLS_USER}}'
+  shell:
+    ## -logLevel finest -debug - If you want debug log on WLS side
+    "{{JAVA_HOME}}/bin/java -jar {{item}} -silent -responseFile {{APP_HOME}}/response -invPtrLoc {{APP_HOME}}/oraInst ORACLE_HOME={{ORACLE_HOME}}"
+  with_items:
+    - '{{FMW_JAR.stdout_lines}}'

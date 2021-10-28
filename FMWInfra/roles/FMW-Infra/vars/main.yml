@@ -1,0 +1,29 @@
+---
+# vars file for FMW-Infra
+
+## General Info
+WLS_VERSION: "12.2.1.4"
+JAVA_VERSION: "jdk1.8.255"
+
+## User Info
+WLS_USER: "dojowls"
+WLS_GROUP: "dojowls"
+
+
+## Oracle ENV Variables
+APP_HOME: "/home/dojowls"
+JAVA_DIR: '{{APP_HOME}}/java'
+JAVA_HOME: '{{JAVA_DIR}}/java_latest'
+ORACLE_HOME: '{{APP_HOME}}/{{WLS_VERSION}}'
+
+## Installation Response
+INSTALL_TYPE: Fusion Middleware Infrastructure # OPTIONS: Fusion Middleware Infrastructure, Fusion Middleware Infrastructure With Examples.
+DECLINE_AUTO_UPDATES: True  # OPTIONS: Ture / False
+
+
+
+
+
+
+
+

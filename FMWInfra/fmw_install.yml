@@ -1,0 +1,5 @@
+---
+- name: Install and Configure FMW
+  hosts: dojoserver
+  roles:
+    - roles/FMW-Infra

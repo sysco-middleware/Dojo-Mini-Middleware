@@ -1,0 +1,25 @@
+---
+- name: Find the JDK file
+  shell: ls '{{APP_HOME}}'/files/jdk-*
+  register: JDKFILE
+  
+- name: Extract JDK
+  unarchive:
+    src: '{{item}}'
+    dest: '{{JAVA_DIR}}/{{JAVA_VERSION}}'
+    owner: '{{WLS_USER}}'
+    group: '{{WLS_GROUP}}'
+    extra_opts: [--strip-components=1]
+    remote_src: yes
+  with_items:
+    - '{{JDKFILE.stdout_lines}}'   
+
+- name: Create java_latest SymLink
+  become: yes
+  become_user: '{{WLS_USER}}'
+  file:
+    src: '{{JAVA_DIR}}/{{JAVA_VERSION}}'
+    dest: '{{JAVA_HOME}}'
+    owner: '{{WLS_USER}}'
+    group: '{{WLS_GROUP}}'
+    state: link
