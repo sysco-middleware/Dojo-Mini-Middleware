@@ -1,5 +1,8 @@
 ---
 - name: Install and Configure FMW
   hosts: dojoserver
+  vars_files:
+    - '{{ playbook_dir }}/variables.yml'
   roles:
-    - roles/FMW-Infra
+    - roles/jdk_install
+    - roles/FMW_Infra_Install

@@ -1,0 +1,38 @@
+---
+- name: Create required directories
+  file:
+    path: '{{ item }}'
+    owner: '{{ WLS_USER }}'
+    group: '{{ WLS_GROUP }}'
+    state: directory
+    mode: 0755
+  with_items:
+    - '{{ ORACLE_HOME }}'
+
+- name: Copy the binaries
+  copy:
+    src: '{{ playbook_dir }}/files/{{ FMW_INSTALLATION_BINARY }}'
+    dest: '{{ MW_INSTALLER_DIR }}'
+    owner: '{{ WLS_USER }}'
+    group: '{{ WLS_GROUP }}'
+
+- name: Copy the oraInst file
+  template:
+    src: templates/oraInst.j2
+    dest: '{{ ORACLE_BASE }}/oraInst'
+    owner: '{{ WLS_USER }}'
+    group: '{{ WLS_GROUP }}'
+
+- name: Copy the response file
+  template:
+    src: templates/response.j2
+    dest: '{{ ORACLE_BASE }}/response'
+    owner: '{{ WLS_USER }}'
+    group: '{{ WLS_GROUP }}'
+
+- name: Install WLS
+  become: yes
+  become_user: '{{WLS_USER}}'
+  shell:
+    ## -logLevel finest -debug - If you want debug log on WLS side
+    "{{ JAVA_HOME }}/bin/java -jar {{ MW_INSTALLER_DIR }}/{{ FMW_INSTALLATION_BINARY }} -silent -responseFile {{ORACLE_BASE}}/response -invPtrLoc {{ORACLE_BASE}}/oraInst ORACLE_HOME={{ORACLE_HOME}}"

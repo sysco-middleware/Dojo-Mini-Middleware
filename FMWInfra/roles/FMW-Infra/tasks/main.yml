@@ -1,5 +1,0 @@
----
-## tasks file for FMW-Infra
-- include_tasks: prepare.yml
-- include_tasks: install-jdk.yml
-- include_tasks: install-fmw-infra.yml

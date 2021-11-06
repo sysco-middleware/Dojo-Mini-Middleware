@@ -1,0 +1,49 @@
+---
+- name: Create required directories
+  file:
+    path: '{{ item }}'
+    owner: '{{ WLS_USER }}'
+    group: '{{ WLS_GROUP }}'
+    state: directory
+    mode: 0755
+  with_items:
+    - '{{ JDK_DIRf }}'
+    - '{{ MW_INSTALLER_DIR }}'
+
+- name: Copy the binaries
+  copy:
+    src: '{{ playbook_dir }}/files/{{ JDK_INSTALLATION_ARCHIVE }}'
+    dest: '{{ MW_INSTALLER_DIR }}'
+    owner: '{{ WLS_USER }}'
+    group: '{{ WLS_GROUP }}'
+
+- name: Extract JDK
+  unarchive:
+    src: '{{ MW_INSTALLER_DIR }}/{{ JDK_INSTALLATION_ARCHIVE }}'
+    dest: '{{ JAVA_DIR }}'
+    owner: '{{ WLS_USER }}'
+    group: '{{ WLS_GROUP }}'
+    remote_src: yes
+  args:
+    creates: '{ { JDK_DIR } }'
+
+- name: Create java_latest SymLink
+  become: yes
+  become_user: '{{ WLS_USER }}'
+  file:
+    src: '{{ JDK_DIR }}'
+    dest: '{{ JAVA_HOME }}'
+    owner: '{{ WLS_USER }}'
+    group: '{{ WLS_GROUP }}'
+    state: link
+
+
+- name: Add JAVA_HOME environment variariables in bashrc
+  lineinfile:
+    dest: '/home/{{ WLS_USER }}/.bashrc'
+    line: 'export JAVA_HOME={{ JAVA_HOME }}'
+
+- name: Add Java bin folder to path in bashrc
+  lineinfile:
+    dest: '/home/{{ WLS_USER }}/.bashrc'
+    line: 'export PATH=$PATH:$JAVA_HOME/bin'

@@ -10,7 +10,7 @@
     You can set the be varilables for installation:
      - WLS & JDK VERSION
      - USER/GROUP
-     - Installation Location - APP_HOME
+     - Installation Location - ORACLE_BASE
 
     All the directories including JAVA_HOME and ORACLE_HOME will be created under APP_HOME
 
