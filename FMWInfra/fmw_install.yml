@@ -6,3 +6,4 @@
   roles:
     - roles/jdk_install
     - roles/FMW_Infra_Install
+#    - roles/WLS_Domain_Create

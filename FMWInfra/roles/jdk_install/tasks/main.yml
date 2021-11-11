@@ -7,7 +7,7 @@
     state: directory
     mode: 0755
   with_items:
-    - '{{ JDK_DIRf }}'
+    - '{{ JDK_DIR }}'
     - '{{ MW_INSTALLER_DIR }}'
 
 - name: Copy the binaries
@@ -38,7 +38,7 @@
     state: link
 
 
-- name: Add JAVA_HOME environment variariables in bashrc
+- name: Add JAVA_HOME environment variable in bashrc
   lineinfile:
     dest: '/home/{{ WLS_USER }}/.bashrc'
     line: 'export JAVA_HOME={{ JAVA_HOME }}'
