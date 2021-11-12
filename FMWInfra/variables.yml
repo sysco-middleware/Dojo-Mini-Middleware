@@ -16,12 +16,12 @@ JAVA_HOME: '{{ JAVA_DIR }}/java_latest'
 
 ## Oracle ENV Variables
 ORACLE_BASE: "/home/dojowls"
-ORACLE_HOME: '{{ ORACLE_BASE }}/{{ WLS_VERSION }}'
+ORACLE_HOME: '{{ ORACLE_BASE }}/product/{{ WLS_VERSION }}'
 MW_INSTALLER_DIR: '{{ ORACLE_BASE }}/installers'
 
 ## Installation Response
 INSTALL_TYPE: Fusion Middleware Infrastructure # OPTIONS: Fusion Middleware Infrastructure, Fusion Middleware Infrastructure With Examples.
-DECLINE_AUTO_UPDATES: True  # OPTIONS: Ture / False
+DECLINE_AUTO_UPDATES: True  # OPTIONS: True / False
 
 ## Domain Creation
 DOMAIN_NAME: "base_domain"

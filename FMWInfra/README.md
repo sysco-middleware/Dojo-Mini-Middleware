@@ -1,21 +1,45 @@
-## HOW TO RUN
+# Dojo-Mini-Middleware Install & Configure
 
-**NOTE**: Make sure to have the filenames / version no as provided in the example
+## How-to
+Clone the repo
 
-- Copy the FMW jar and JDK file to the directory files
-    fmw_12.2.1.4.0_infrastructure.jar
-    jdk-8u202-linux-x64.tar.gz
+Update the playbook - **fmw_install.yml**
 
-- For now the variables can be updated only under the role ***FMW-Infra/vars*** directory
-    You can set the be varilables for installation:
-     - WLS & JDK VERSION
-     - USER/GROUP
-     - Installation Location - ORACLE_BASE
+    - update the hosts field
+    - comment / uncomment the roles required \
+        jdk_install : to copy jdk tarball & install jdk \
+        FMW_Infra_Install : to copy binary & install FMW Infra
+    
 
-    All the directories including JAVA_HOME and ORACLE_HOME will be created under APP_HOME
+Copy the FMW jar and JDK file under the  **files** directory
 
+    example:
+    - fmw_12.2.1.4.0_infrastructure.jar
+    - jdk-8u202-linux-x64.tar.gz
 
-- Run the playbook as below 
+Update the vaiables in  **variables.yml** file 
+
+    TIP : Refer the directory structure and modify the variables based on customization required
+
+## Directory structure created
+
+```
+$(ORACLE_BASE)
+ - $(MW_INSTALLER_DIR)
+ - java
+	- $(JAVA_HOME) # java_latest which will be a symlink
+	- $(JDK_DIR
+ - product
+	- $(ORACLE_HOME)
+ - config
+	- $(DOMAIN_HOME)
+		- DOMAIN_NAME
+	- applications
+```
+**NOTE :** All variables are enclosed with **$( )** and they can be modified using the varibales.yml
+
+## Run the playbook
 ```
     ansible-playbook fmw_install.yml -b -vv
 ```
+
