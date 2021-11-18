@@ -19,14 +19,14 @@
 
 - name: Copy the oraInst file
   template:
-    src: oraInst.j2
+    src: oraInst.loc.j2
     dest: '{{ ORACLE_BASE }}/oraInst'
     owner: '{{ WLS_USER }}'
     group: '{{ WLS_GROUP }}'
 
 - name: Copy the response file
   template:
-    src: response.j2
+    src: fmw-infra.rsp.j2
     dest: '{{ ORACLE_BASE }}/response'
     owner: '{{ WLS_USER }}'
     group: '{{ WLS_GROUP }}'

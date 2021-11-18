@@ -1,9 +1,9 @@
 ---
-- name: Install and Configure FMW
+- name: Install and Configure Fusion Middleware (FMW)
   hosts: dojoserver
   vars_files:
     - '{{ playbook_dir }}/variables.yml'
   roles:
-    - jdk_install
-    - FMW_Infra_Install
+    - dojo-jdk-installer
+    - dojo-fmw-installer
 #    - WLS_Domain_Create
