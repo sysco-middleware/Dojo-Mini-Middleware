@@ -7,8 +7,8 @@ Update the playbook - **fmw_install.yml**
 
     - update the hosts field
     - comment / uncomment the roles required \
-        jdk_install : to copy jdk tarball & install jdk \
-        FMW_Infra_Install : to copy binary & install FMW Infra
+        dojo-jdk-installer : to copy jdk tarball & install jdk \
+        dojo-fmw-installer : to copy binary & install FMW Infra
     
 
 Copy the FMW jar and JDK file under the  **files** directory

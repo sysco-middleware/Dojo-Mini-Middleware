@@ -6,30 +6,37 @@ Ansible role to Install and Configure Fusion Middleware (FMW)
 Requirements
 ------------
 
-TODO: update  
-Any pre-requisites that may not be covered by Ansible itself or the role should be mentioned here. For instance, if the role uses the EC2 module, it may be a good idea to mention in this section that the boto package is required.
+Copy the FMW binary file under the  **files** directory
 
 Role Variables
 --------------
+Below are the variables used by the role and they should be defined in the **variables.yml** file.
 
-TODO: update  
-A description of the settable variables for this role should go here, including any variables that are in defaults/main.yml, vars/main.yml, and any variables that can/should be set via parameters to the role. Any variables that are read from other roles and/or the global scope (ie. hostvars, group vars, etc.) should be mentioned here as well.
+    ORACLE_BASE: "/home/dojowls"
+    ORACLE_HOME: '{{ ORACLE_BASE }}/product/{{ WLS_VERSION }}'
+    MW_INSTALLER_DIR: '{{ ORACLE_BASE }}/installers'
+
+    INSTALL_TYPE: Fusion Middleware Infrastructure # OPTIONS: Fusion Middleware Infrastructure, Fusion Middleware Infrastructure With Examples.
+    DECLINE_AUTO_UPDATES: True  # OPTIONS: True / False
 
 Dependencies
 ------------
 
-TODO: update  
-A list of other roles hosted on Galaxy should go here, plus any details in regards to parameters that may need to be set for other roles, or variables that are used from other roles.
+JDK insatllation must be completed before using this role. Define the *JDK_HOME* variable on *variables.yml* file as it will be used by *dojo-fmw-installer* role 
+
+**dojo-jdk-installer** role can be used to intall the jdk
 
 Example Playbook
 ----------------
 
-TODO: update  
-Including an example of how to use your role (for instance, with variables passed in as parameters) is always nice for users too:
+Update the variables in **variables.yml** on the playbook directory path with playbook as below
 
-    - hosts: servers
-      roles:
-         - { role: username.rolename, x: 42 }
+    hosts: <server_group>
+    vars_files:
+      - '{{ playbook_dir }}/variables.yml'
+    roles:
+      - dojo-jdk-installer
+      - dojo-fmw-installer
 
 License
 -------
