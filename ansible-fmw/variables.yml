@@ -1,0 +1,35 @@
+## General Info
+WLS_VERSION: "12.2.1.4"
+
+JDK_INSTALLATION_ARCHIVE: "jdk-8u311-linux-x64.tar.gz"
+FMW_INSTALLATION_BINARY: "fmw_12.2.1.4.0_infrastructure.jar"
+
+## User Info
+WLS_USER: "dojowls"
+WLS_GROUP: "dojowls"
+
+
+## JDK Variables
+JAVA_DIR: '{{ ORACLE_BASE }}/java'
+JDK_DIR: '{{ JAVA_DIR }}/jdk1.8.0_311'
+JAVA_HOME: '{{ JAVA_DIR }}/java_latest'
+
+## Oracle ENV Variables
+ORACLE_BASE: "/home/dojowls"
+ORACLE_HOME: '{{ ORACLE_BASE }}/product/{{ WLS_VERSION }}'
+MW_INSTALLER_DIR: '{{ ORACLE_BASE }}/installers'
+
+## Installation Response
+INSTALL_TYPE: Fusion Middleware Infrastructure # OPTIONS: Fusion Middleware Infrastructure, Fusion Middleware Infrastructure With Examples.
+DECLINE_AUTO_UPDATES: True  # OPTIONS: True / False
+
+## Domain Creation
+DOMAIN_NAME: "base_domain"
+DOMAIN_HOME: '{{ ORACLE_BASE }}/config/Domains'
+APPLICATIONS_HOME: '{{ ORACLE_BASE }}/config/applications'
+
+## DB Details
+DB_CONN_STRING: "dbserver_name:dbserver_port:dbserver_service"
+SYSDBA_PASSWORD: ""
+DATASOURCE_PASSWORD: ""
+SCHEMA_PREFIX: "dev"

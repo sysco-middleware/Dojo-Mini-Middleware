@@ -1,0 +1,24 @@
+---
+# Create Repository in Database
+- name: copy password file
+  template:
+    src: passwords.txt
+    dest: '{{ MW_INSTALLER_DIR }}'
+    owner: '{{ WLS_USER }}'
+    group: '{{ WLS_GROUP }}'
+
+- name: copy create repository script
+  template:
+    src: create_repo.sh
+    dest: '{{ MW_INSTALLER_DIR }}'
+    owner: '{{ WLS_USER }}'
+    group: '{{ WLS_GROUP }}'
+    mode: 0755
+
+- name: execute create repository script
+  shell: "{{ MW_INSTALLER_DIR }}/create_repo.sh"
+  tags:
+    - repo
+# Create new domain
+
+# Create Environment Variables for Oracle user
