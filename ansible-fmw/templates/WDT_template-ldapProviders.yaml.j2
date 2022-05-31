@@ -1,0 +1,36 @@
+topology:
+    SecurityConfiguration:
+        Realm:
+            myrealm:
+                AuthenticationProvider:
+                    "DOJO_LDAP_Authenticator":
+                        LDAPAuthenticator:
+                            ControlFlag: SUFFICIENT
+                            PropagateCauseForLoginException: true
+                            EnableGroupMembershipLookupHierarchyCaching: true
+                            Host: "myldap.example.com"
+                            Port: 389
+                            UserObjectClass: person
+                            GroupHierarchyCacheTTL: 600
+                            SSLEnabled: true
+                            UserNameAttribute: cn
+                            Principal: 'cn=foo,ou=users,dc=example,dc=com'
+                            UserBaseDn: 'OU=Users,DC=example,DC=com'
+                            UserSearchScope: subtree
+                            UserFromNameFilter: '(&(cn=%u)(objectclass=person))'
+                            AllUsersFilter: '(memberOf=CN=foo,OU=mygroups,DC=example,DC=com)'
+                            GroupBaseDN: 'OU=mygroups,DC=example,DC=com'
+                            AllGroupsFilter: '(&(foo)(objectclass=group))'
+                            StaticGroupObjectClass: group
+                            StaticMemberDNAttribute: cn
+                            StaticGroupDNsfromMemberDNFilter: '(&(member=%M)(objectclass=group))'
+                            DynamicGroupObjectClass: group
+                            DynamicGroupNameAttribute: cn
+                            UseRetrievedUserNameAsPrincipal: true
+                            KeepAliveEnabled: true
+                            GuidAttribute: uuid
+                    DefaultAuthenticator:
+                        DefaultAuthenticator:
+                            ControlFlag: SUFFICIENT
+                    DefaultIdentityAsserter:
+                        DefaultIdentityAsserter:

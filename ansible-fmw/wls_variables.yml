@@ -24,12 +24,20 @@ INSTALL_TYPE: WebLogic Server
 DECLINE_AUTO_UPDATES: True  # OPTIONS: True / False
 
 ## Domain Creation
-DOMAIN_NAME: "base_domain"
+DOMAIN_NAME: "dojowlsdomain"
+DOMAIN_LOGS_DIR: "/home/{{ WLS_USER }}"
+
+WDT_HOME: "/home/{{ WLS_USER }}/weblogic-deploy"
+WDT_TEMPLATES_HOME: "/home/{{ WLS_USER }}/wdt-templates"
+
+WEBLOGIC_USERNAME: "weblogic"
+WEBLOGIC_PASSWORD: "welcome123"
+
 DOMAIN_HOME: '{{ ORACLE_BASE }}/config/Domains'
 APPLICATIONS_HOME: '{{ ORACLE_BASE }}/config/applications'
 
-## DB Details
-DB_CONN_STRING: "dbserver_name:dbserver_port:dbserver_service"
-SYSDBA_PASSWORD: ""
-DATASOURCE_PASSWORD: ""
-SCHEMA_PREFIX: "dev"
+## DB Details # NB! no need for now
+#DB_CONN_STRING: "dbserver_name:dbserver_port:dbserver_service"
+#SYSDBA_PASSWORD: ""
+#DATASOURCE_PASSWORD: ""
+#SCHEMA_PREFIX: "dev"

@@ -36,10 +36,25 @@ $(ORACLE_BASE)
 		- DOMAIN_NAME
 	- applications
 ```
-**NOTE :** All variables are enclosed with **$( )** and they can be modified using the varibales.yml
+**NOTE :** All variables are enclosed with **$( )** and they can be modified using the `variables.yml`
 
 ## Run the playbook
 ```
-    ansible-playbook fmw_install.yml -b -vv
+    ansible-playbook fmw_instance_maker.yml -b -vv
 ```
 
+
+### Domain creation using WDT 
+Use this collection [zeusbaba.wdt](https://galaxy.ansible.com/zeusbaba/wdt) from Ansible Galaxy  
+NB! first and foremost; make sure that collection is installed!
+```
+ansible-galaxy collection install zeusbaba.wdt    
+```
+now go ahead with more  
+```
+# prepare `inventory_dojo` file, e.g.  
+dojoserver ansible_host=FIXME_IP ansible_ssh_user=FIXME_USER ansible_ssh_private_key_file=~/.ssh/FIXME_ssh.key
+
+# now you can run the playbook for domain creation
+ ansible-playbook -i inventory_dojo  fmw_wls_domain_maker.yml -vvv
+```

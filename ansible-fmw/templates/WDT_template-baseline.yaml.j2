@@ -1,0 +1,33 @@
+domainInfo:
+    AdminUserName: '{{ WEBLOGIC_USERNAME }}'
+    AdminPassword: '{{ WEBLOGIC_PASSWORD }}'
+topology:
+    Name: '{{ DOMAIN_NAME }}'
+    AdminServerName: 'dojo-wls-admin-server'
+    ProductionModeEnabled: 'true'
+    Log:
+        FileCount: 10
+        RotateLogOnStartup: true
+        RotationType: bySize
+        NumberOfFilesLimited: true
+        RedirectStderrToServerLogEnabled: true
+        RedirectStdoutToServerLogEnabled: true
+{#  The size (1 - 2097150 kilobytes) that triggers the server to move log messages to a separate file. The default is 500 kilobytes #}
+        FileMinSize: 44000
+        DomainLogBroadcasterBufferSize: 1
+        FileName: dojowlsdomain.log
+    Cluster:
+        'dojo-wls-cluster':
+            DynamicServers:
+                ServerTemplate: 'dojo-wls-cluster-template'
+                CalculatedListenPorts: false
+                ServerNamePrefix: 'dojo-wls-cluster-managed-server'
+                DynamicClusterSize: '2'
+                MaxDynamicClusterSize: '2'
+    Server:
+        'dojo-wls-admin-server':
+            ListenPort: '7001'
+    ServerTemplate:
+        'dojo-wls-cluster-template':
+            ListenPort: '8001'
+            Cluster: 'dojo-wls-cluster'

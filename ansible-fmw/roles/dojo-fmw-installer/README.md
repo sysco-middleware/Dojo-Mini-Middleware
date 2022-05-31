@@ -22,9 +22,9 @@ Below are the variables used by the role and they should be defined in the **var
 Dependencies
 ------------
 
-JDK insatllation must be completed before using this role. Define the *JDK_HOME* variable on *variables.yml* file as it will be used by *dojo-fmw-installer* role 
+JDK installation must be completed before using this role. Define the *JDK_HOME* variable on *variables.yml* file as it will be used by *dojo-fmw-installer* role 
 
-**dojo-jdk-installer** role can be used to intall the jdk
+**dojo-jdk-installer** role can be used to install the jdk
 
 Example Playbook
 ----------------
