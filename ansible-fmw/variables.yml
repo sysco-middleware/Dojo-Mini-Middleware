@@ -21,6 +21,8 @@ MW_INSTALLER_DIR: '{{ ORACLE_BASE }}/installers'
 
 ## Installation Response
 INSTALL_TYPE: Fusion Middleware Infrastructure # OPTIONS: Fusion Middleware Infrastructure, Fusion Middleware Infrastructure With Examples.
+## While using the lite installer, use the below type
+# INSTALL_TYPE: WebLogic Server
 DECLINE_AUTO_UPDATES: True  # OPTIONS: True / False
 
 ## Domain Creation

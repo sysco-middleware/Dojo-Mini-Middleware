@@ -17,9 +17,16 @@ Copy the FMW jar and JDK file under the  **files** directory
     - fmw_12.2.1.4.0_infrastructure.jar
     - jdk-8u202-linux-x64.tar.gz
 
-Update the vaiables in  **variables.yml** file 
+Update the vaiables in  **variables.yml** file
+- Important Variables to be updated:
+    - JDK_INSTALLATION_ARCHIVE
+    - FMW_INSTALLATION_BINARY
+    - ORACLE_BASE
+    - JDK_DIR
 
-    TIP : Refer the directory structure and modify the variables based on customization required
+
+> **Tip**  
+Refer the directory structure and modify the variables based on customization required
 
 ## Directory structure created
 
@@ -36,7 +43,8 @@ $(ORACLE_BASE)
 		- DOMAIN_NAME
 	- applications
 ```
-**NOTE :** All variables are enclosed with **$( )** and they can be modified using the varibales.yml
+> **Note** \
+All variables are enclosed with **$( )** and they can be modified using the varibales.yml
 
 ## Run the playbook
 ```
