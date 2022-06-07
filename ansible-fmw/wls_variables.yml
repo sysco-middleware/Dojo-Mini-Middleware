@@ -3,7 +3,7 @@ WLS_VERSION: "12.2.1.4"
 
 JDK_INSTALLATION_ARCHIVE: "jdk-8u331-linux-x64.tar.gz"
 WLS_INSTALLATION_BINARY: "fmw_12.2.1.4.0_wls_lite_generic.jar"
-
+WDT_INSTALLATION_ZIP: "weblogic-deploy.zip"
 ## User Info
 WLS_USER: "dojowls"
 WLS_GROUP: "dojo"
@@ -18,6 +18,7 @@ JAVA_HOME: '{{ JAVA_DIR }}/java_latest'
 ORACLE_BASE: "/home/dojowls/wls_lite"
 ORACLE_HOME: '{{ ORACLE_BASE }}/product/{{ WLS_VERSION }}'
 MW_INSTALLER_DIR: '{{ ORACLE_BASE }}/installers'
+FMW_HOME: '{{ ORACLE_BASE }}/product'
 
 ## Installation Response
 INSTALL_TYPE: WebLogic Server
@@ -29,7 +30,7 @@ DOMAIN_LOGS_DIR: "/home/{{ WLS_USER }}"
 
 WDT_HOME: "/home/{{ WLS_USER }}/weblogic-deploy"
 WDT_TEMPLATES_HOME: "/home/{{ WLS_USER }}/wdt-templates"
-
+DOMAIN_TEMPLATE: "WDT_template-baseline.yaml.j2"
 WEBLOGIC_USERNAME: "weblogic"
 WEBLOGIC_PASSWORD: "welcome123"
 

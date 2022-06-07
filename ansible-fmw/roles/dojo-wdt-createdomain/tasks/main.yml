@@ -1,0 +1,37 @@
+---
+# tasks file for dojo-wdt-createdomain
+- name: Copy the binaries
+  copy:
+    src: '{{ playbook_dir }}/files/{{ WDT_INSTALLATION_ZIP }}'
+    dest: '{{ MW_INSTALLER_DIR }}'
+    owner: '{{ WLS_USER }}'
+    group: '{{ WLS_GROUP }}'
+
+- name: Extract WDT
+  unarchive:
+    src: '{{ MW_INSTALLER_DIR }}/{{ WDT_INSTALLATION_ZIP }}'
+    dest: '{{ WDT_HOME }}'
+    owner: '{{ WLS_USER }}'
+    group: '{{ WLS_GROUP }}'
+    remote_src: yes
+  args:
+    creates: '{ { WDT_HOME } }'
+
+- name: Copying template to target
+  template:
+    src: '{{ playbook_dir }}/templates/{{ DOMAIN_TEMPLATE }}'
+    dest: '{{ WDT_TEMPLATES_HOME }}/create_domain.yml'
+    owner: '{{ WLS_USER }}'
+    group: '{{ WLS_GROUP }}'
+
+
+- name: Create Domain
+  shell: 
+    "{{ WDT_HOME }}/bin/createDomain.sh -oracle_home {{ ORACLE_HOME }} -domain_type WLS -domain_parent {{ DOMAIN_HOME }} -model_file {{ WDT_TEMPLATES_HOME }}/create_domain.yml"
+  become_user: '{{ WLS_USER }}'
+  become: yes
+  environment:
+    - JAVA_HOME: '{{ JAVA_HOME }}'
+    - PATH: '{{ JAVA_HOME }}/bin:{{ ansible_env.PATH }}'
+
+  

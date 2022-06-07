@@ -1,0 +1,4 @@
+[ZoneTransfer]
+ZoneId=3
+ReferrerUrl=https://github.com/oracle/weblogic-deploy-tooling/releases
+HostUrl=https://objects.githubusercontent.com/github-production-release-asset-2e65be/120652037/9437bd66-11a8-485b-aa90-26f9456f92b7?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Credential=AKIAIWNJYAX4CSVEH53A%2F20220603%2Fus-east-1%2Fs3%2Faws4_request&X-Amz-Date=20220603T112612Z&X-Amz-Expires=300&X-Amz-Signature=49a6b6d67b72a8ca4a24320010ce6c1cc8961bff7969f04aad0a3dbe7b2bfedd&X-Amz-SignedHeaders=host&actor_id=32287323&key_id=0&repo_id=120652037&response-content-disposition=attachment%3B%20filename%3Dweblogic-deploy.zip&response-content-type=application%2Foctet-stream

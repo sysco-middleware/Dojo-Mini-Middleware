@@ -2,6 +2,7 @@
 WLS_VERSION: "12.2.1.4"
 
 JDK_INSTALLATION_ARCHIVE: "jdk-8u311-linux-x64.tar.gz"
+WDT_INSTALLATION_ZIP: "weblogic-deploy.zip"
 FMW_INSTALLATION_BINARY: "fmw_12.2.1.4.0_infrastructure.jar"
 
 ## User Info
@@ -16,6 +17,7 @@ JAVA_HOME: '{{ JAVA_DIR }}/java_latest'
 
 ## Oracle ENV Variables
 ORACLE_BASE: "/home/dojowls"
+FMW_HOME: '{{ORACLE_BASE}}/product'
 ORACLE_HOME: '{{ ORACLE_BASE }}/product/{{ WLS_VERSION }}'
 MW_INSTALLER_DIR: '{{ ORACLE_BASE }}/installers'
 

@@ -9,6 +9,9 @@
   with_items:
     - '{{ JDK_DIR }}'
     - '{{ MW_INSTALLER_DIR }}'
+    - '{{ WDT_HOME }}'
+    - '{{ WDT_TEMPLATES_HOME }}'
+    - '{{ DOMAIN_HOME }}'
 
 - name: Copy the binaries
   copy:
