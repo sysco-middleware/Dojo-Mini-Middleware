@@ -1,0 +1,37 @@
+---
+- name: Play to start the services of WLS domain
+  hosts: dojoserver
+  become: true
+  become_user: "{{ WLS_USER }}"
+  vars_files:
+    - '{{ playbook_dir }}/wls_variables.yml'
+  tasks:
+    - name: start the weblogic adminstrator
+      tags: startAdmin
+      shell: 
+        "nohup {{DOMAIN_HOME}}/{{DOMAIN_NAME}}/bin/startWebLogic.sh > {{DOMAIN_HOME}}/{{DOMAIN_NAME}}/servers/dojo-wls-admin-server/logs/dojo-wls-admin-server.out 2>&1 &"
+        
+    - name: start the Node Manager
+      tags: start_NodeManager
+      shell:  
+        "nohup {{DOMAIN_HOME}}/{{DOMAIN_NAME}}/bin/startNodeManager.sh > {{DOMAIN_HOME}}/{{DOMAIN_NAME}}/bin/startNodeManager.log 2>&1 &"
+
+    - name: start the Managed_Server
+      tags: start_ManagedServer
+      shell:  |
+        "nohup  {{DOMAIN_HOME}}/{{DOMAIN_NAME}}/bin/startManagedWebLogic.sh {{ item }} > {{DOMAIN_HOME}}/{{DOMAIN_NAME}}/bin/{{ item }}.log"
+      loop:
+        "{{ MANAGED_SERVER }}"
+
+
+... 
+
+
+      
+
+      
+
+
+
+
+...
