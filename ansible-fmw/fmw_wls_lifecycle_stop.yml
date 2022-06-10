@@ -8,4 +8,4 @@
   
   tasks:
     - shell:
-        '{{ DOMAIN_HOME }}/{{ DOMAIN_NAME }}/bin/stopWebLogic.sh
+        "{{ DOMAIN_HOME }}/{{ DOMAIN_NAME }}/bin/stopWebLogic.sh"
