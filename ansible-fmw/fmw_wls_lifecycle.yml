@@ -1,6 +1,6 @@
 ---
 - name: Play to start the services of WLS domain
-  hosts: dojoserver:localhost
+  hosts: dojoserver
   become: true
   become_user: "{{ WLS_USER }}"
   vars_files:
@@ -9,24 +9,24 @@
     - name: Lifecycle start
       tags: start
       block:
-        - name: start the weblogic adminstrator
+        - name: Start the Weblogic Adminstrator
           tags: startAdmin
           shell: 
             "nohup {{DOMAIN_HOME}}/{{DOMAIN_NAME}}/bin/startWebLogic.sh > {{DOMAIN_HOME}}/{{DOMAIN_NAME}}/servers/dojo-wls-admin-server/logs/dojo-wls-admin-server.out 2>&1 &"
         
-        - name: start the Node Manager
+        - name: Start the Node Manager
           tags: startNodeManager
-           shell:  
+          shell:  
             "nohup {{DOMAIN_HOME}}/{{DOMAIN_NAME}}/bin/startNodeManager.sh > {{DOMAIN_HOME}}/{{DOMAIN_NAME}}/bin/startNodeManager.log 2>&1 &"
 
     - name: Lifecycle stop
       tags: stop
       block:
-        - name: Weblogic stop
+        - name: Stop Admin Server
           tags: stopAdmin
           shell:
             "{{ DOMAIN_HOME }}/{{ DOMAIN_NAME }}/bin/stopWebLogic.sh"
-        - name: Lifecycle stop
+        - name: Stop NodeManager
           tags: stopNodeManager
           shell:
             "{{ DOMAIN_HOME }}/{{ DOMAIN_NAME }}/bin/stopNodeManager.sh"
