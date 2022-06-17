@@ -6,19 +6,6 @@
   vars_files:
     - '{{ playbook_dir }}/wls_variables.yml'
   tasks:
-    - name: Lifecycle start
-      tags: start
-      block:
-        - name: Start the Weblogic Adminstrator
-          tags: startAdmin
-          shell: 
-            "nohup {{DOMAIN_HOME}}/{{DOMAIN_NAME}}/bin/startWebLogic.sh > {{DOMAIN_HOME}}/{{DOMAIN_NAME}}/servers/dojo-wls-admin-server/logs/dojo-wls-admin-server.out 2>&1 &"
-        
-        - name: Start the Node Manager
-          tags: startNodeManager
-          shell:  
-            "nohup {{DOMAIN_HOME}}/{{DOMAIN_NAME}}/bin/startNodeManager.sh > {{DOMAIN_HOME}}/{{DOMAIN_NAME}}/bin/startNodeManager.log 2>&1 &"
-
     - name: Lifecycle stop
       tags: stop
       block:
@@ -26,10 +13,25 @@
           tags: stopAdmin
           shell:
             "{{ DOMAIN_HOME }}/{{ DOMAIN_NAME }}/bin/stopWebLogic.sh"
+            
         - name: Stop NodeManager
           tags: stopNodeManager
           shell:
             "{{ DOMAIN_HOME }}/{{ DOMAIN_NAME }}/bin/stopNodeManager.sh"
+    - name: Lifecycle start
+      tags: start
+      block:
+        - name: Start the Node Manager
+          tags: startNodeManager
+          shell:  
+            "nohup {{DOMAIN_HOME}}/{{DOMAIN_NAME}}/bin/startNodeManager.sh > {{DOMAIN_HOME}}/{{DOMAIN_NAME}}/bin/startNodeManager.log 2>&1 &"
+            
+        - name: Start the Weblogic Adminstrator
+          tags: startAdmin
+          shell: 
+            "nohup {{DOMAIN_HOME}}/{{DOMAIN_NAME}}/bin/startWebLogic.sh > {{DOMAIN_HOME}}/{{DOMAIN_NAME}}/servers/dojo-wls-admin-server/logs/dojo-wls-admin-server.out 2>&1 &"
+                
+
 
 
 
