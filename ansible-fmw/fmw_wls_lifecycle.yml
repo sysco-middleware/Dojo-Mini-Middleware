@@ -30,24 +30,4 @@
           tags: startAdmin
           shell: 
             "nohup {{DOMAIN_HOME}}/{{DOMAIN_NAME}}/bin/startWebLogic.sh > {{DOMAIN_HOME}}/{{DOMAIN_NAME}}/servers/dojo-wls-admin-server/logs/dojo-wls-admin-server.out 2>&1 &"
-                
-
-
-
-
-
-
-
-
-
 ... 
-
-
-      
-
-      
-
-
-
-
-...
