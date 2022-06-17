@@ -58,3 +58,20 @@ dojoserver ansible_host=FIXME_IP ansible_ssh_user=FIXME_USER ansible_ssh_private
 # now you can run the playbook for domain creation
  ansible-playbook -i inventory_dojo  fmw_wls_domain_maker.yml -vvv
 ```
+
+### FMW LifeCycle using Ansible 
+
+Use playbook fmw_wls_lifecycle.yml to automate the lifecycle of WLS.
+Life cycle currently suppport below operations:
+* Start Admin server & start nodemanager combinedly 
+` ansible-playbook fmw_wls_lifecycle.yml --tags=start`
+* Start Admin server individually
+` ansible-playbook fmw_wls_lifecycle.yml --tags=startAdmin`
+* Start NodeManager server individually
+` ansible-playbook fmw_wls_lifecycle.yml --tags=startNodeManager`
+* Stop Admin server & start nodemanager combinedly 
+` ansible-playbook fmw_wls_lifecycle.yml --tags=stop`
+* Stop Admin server individually
+` ansible-playbook fmw_wls_lifecycle.yml --tags=stopAdmin`
+* Stop NodeManager server individually
+` ansible-playbook fmw_wls_lifecycle.yml --tags=stopNodeManager`
