@@ -1,0 +1,26 @@
+appDeployments:
+    Library:
+        owasp.esapi#2.0@12.2.1:
+            SourcePath: '@@ORACLE_HOME@@/oracle_common/modules/oracle.owasp/owasp-esapi.jar'
+            StagingMode: nostage
+            Target: oam_policy_mgr1,AdminServer,oam_server1
+        jsf#2.0@1.0.0.0_2-2-8:
+            SourcePath: '@@WL_HOME@@/common/deployable-libraries/jsf-2.0.war'
+            ModuleType: war
+            StagingMode: nostage
+            Target: oam_policy_mgr1,AdminServer,oam_server1
+        jstl#1.2@1.2.0.1:
+            SourcePath: '@@WL_HOME@@/common/deployable-libraries/jstl-1.2.war'
+            ModuleType: war
+            StagingMode: nostage
+            Target: oam_server1,oam_policy_mgr1,AdminServer
+        ohj#5@12.2.1.3.0:
+            SourcePath: '@@ORACLE_HOME@@/oracle_common/modules/oracle.help/ohj.jar'
+            ModuleType: war
+            StagingMode: nostage
+            Target: oam_server1,AdminServer,oam_policy_mgr1
+        oracle_ice#5@12.2.1.3.0:
+            SourcePath: '@@ORACLE_HOME@@/oracle_common/modules/oracle.help/oracle_ice.jar'
+            ModuleType: war
+            StagingMode: nostage
+            Target: oam_server1,oam_policy_mgr1,AdminServer

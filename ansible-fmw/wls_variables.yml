@@ -4,6 +4,7 @@ WLS_VERSION: "12.2.1.4"
 JDK_INSTALLATION_ARCHIVE: "jdk-8u331-linux-x64.tar.gz"
 WLS_INSTALLATION_BINARY: "fmw_12.2.1.4.0_wls_lite_generic.jar"
 
+
 ## User Info
 WLS_USER: "dojowls"
 WLS_GROUP: "dojo"
@@ -15,9 +16,10 @@ JDK_DIR: '{{ JAVA_DIR }}/jdk1.8.0_331'
 JAVA_HOME: '{{ JAVA_DIR }}/java_latest'
 
 ## Oracle ENV Variables
-ORACLE_BASE: "/home/{{ WLS_USER }}/wls-lite"
+ORACLE_BASE: "/home/{{ WLS_USER }}/day-3"
 ORACLE_HOME: '{{ ORACLE_BASE }}/product/{{ WLS_VERSION }}'
 MW_INSTALLER_DIR: '{{ ORACLE_BASE }}/installers'
+OPATCH_HOME: '{{ ORACLE_HOME}}/OPatch'
 
 ## Installation Response
 INSTALL_TYPE: WebLogic Server
@@ -29,15 +31,26 @@ DOMAIN_LOGS_DIR: "/home/{{ WLS_USER }}"
 
 WDT_HOME: "/home/{{ WLS_USER }}/weblogic-deploy"
 WDT_TEMPLATES_HOME: "/home/{{ WLS_USER }}/wdt-templates"
+WDT_TEMPLATE: "WDT_SSO_template-baseline.yaml.j2"
+WDT_UPDATE_TEMPLATE: "WDT_SSO_Update-domain.yaml.j2"
 
 WEBLOGIC_USERNAME: "weblogic"
 WEBLOGIC_PASSWORD: "welcome123"
 
 DOMAIN_HOME: '{{ ORACLE_BASE }}/config/Domains'
+CONFIG_HOME: '{{ DOMAIN_HOME }}/{{ DOMAIN_NAME }}/config'
+CONFIG_FILE: '{{ CONFIG_HOME }}/config.xml'
 APPLICATIONS_HOME: '{{ ORACLE_BASE }}/config/applications'
 
 ## DB Details # NB! no need for now
 #DB_CONN_STRING: "dbserver_name:dbserver_port:dbserver_service"
 #SYSDBA_PASSWORD: ""
-#DATASOURCE_PASSWORD: ""
+DATASOURCE_PASSWORD: "welcome"
 #SCHEMA_PREFIX: "dev"
+
+# Variables for patching
+SOURCE_PATCH_DIR: "{{ playbook_dir }}/files/patch"
+DEST_PATCH_DIR: "{{ ORACLE_BASE }}/patches"
+PATCH_LIST: 
+  - "p34261173_122140_Generic.zip"
+  - "p31544353_122140_Linux-x86-64.zip"

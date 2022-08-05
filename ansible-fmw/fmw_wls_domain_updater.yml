@@ -1,0 +1,24 @@
+---
+- name: Domain Update using WDT
+  hosts: dojoserver
+  vars_files:
+    - '{{ playbook_dir }}/wls_variables.yml'
+  become: yes
+  become_user: "{{ WLS_USER }}"
+
+  tasks:
+    - name: Copying template to target
+      template:
+        src: '{{ playbook_dir }}/templates/{{ WDT_UPDATE_TEMPLATE }}'
+        dest: "{{ WDT_TEMPLATES_HOME }}/{{ WDT_UPDATE_TEMPLATE.split('.')[0] }}.yml"
+        owner: '{{ WLS_USER }}'
+        group: '{{ WLS_GROUP }}'
+
+    - name: Update Domain
+      shell: 
+        "{{ WDT_HOME }}/bin/updateDomain.sh -oracle_home {{ ORACLE_HOME }} -domain_type WLS -domain_home {{ DOMAIN_HOME }}/{{ DOMAIN_NAME }} -model_file {{ WDT_TEMPLATES_HOME }}/{{ WDT_UPDATE_TEMPLATE.split('.')[0] }}.yml"
+      become_user: '{{ WLS_USER }}'
+      become: yes
+      environment:
+        - JAVA_HOME: '{{ JAVA_HOME }}'
+        - PATH: '{{ JAVA_HOME }}/bin:{{ ansible_env.PATH }}'

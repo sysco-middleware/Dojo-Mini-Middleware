@@ -1,0 +1,48 @@
+---
+- name: Play to start the services of WLS domain
+  hosts: dojoserver
+  become: true
+  become_user: "{{ WLS_USER }}"
+  vars_files:
+    - '{{ playbook_dir }}/wls_variables.yml'
+
+  tasks:
+    - name: Create required directories
+      file:
+        path: '{{ item }}'
+        owner: '{{ WLS_USER }}'
+        group: '{{ WLS_GROUP }}'
+        state: directory
+        mode: 0755
+      with_items:
+          - '{{ DEST_PATCH_DIR }}'
+
+    - name: Copy patches to destination
+      copy:
+        src: '{{ playbook_dir }}/files/patch/{{ item }}'
+        dest: '{{ DEST_PATCH_DIR }}'
+        owner: '{{ WLS_USER }}'
+        group: '{{ WLS_GROUP }}'
+      with_items:
+        - '{{ PATCH_LIST }}'
+        
+    - name: Unzip the patch in the dest
+      unarchive:
+        src: '{{ DEST_PATCH_DIR }}/{{ item }}'
+        dest: '{{ DEST_PATCH_DIR }}'
+        group: '{{ WLS_GROUP }}'
+        owner: '{{ WLS_USER }}'
+        remote_src: yes
+      with_items:
+        - '{{ PATCH_LIST }}'
+    
+    - name: Opatch Apply 
+      tags: opatch
+      vars:
+        PATCH_NAME: "{{ item.split('_')[0][1:] }}"
+      shell: |
+         cd  {{ DEST_PATCH_DIR }}
+         {{ OPATCH_HOME}}/opatch apply {{ PATCH_NAME }} -silent
+
+      with_items: '{{ PATCH_LIST }}'
+     

@@ -1,0 +1,271 @@
+domainInfo:
+    AdminUserName: '{{ WEBLOGIC_USERNAME }}'
+    AdminPassword: '{{ WEBLOGIC_PASSWORD }}'
+topology:
+    Name: '{{ DOMAIN_NAME }}'
+    DomainVersion: 12.2.1.3.0
+    ProductionModeEnabled: true
+    NMProperties:
+        JavaHome: '{{ JAVA_HOME }}'
+        PropertiesVersion: 12.2.1.3.0
+        weblogic.StartScriptName: startWebLogic.sh
+    Server:
+        AdminServer:
+            Machine: oam_Machine_1
+            WebServer:
+                WebServerLog:
+                    LogFileFormat: extended
+                    ELFFields: date time cs-method ctx-ecid ctx-rid cs-uri sc-status
+                        bytes
+        oam_server1:
+            ListenPort: 14100
+            Machine: oam_Machine_1
+            WebServer:
+                WebServerLog:
+                    LogFileFormat: extended
+                    ELFFields: date time cs-method ctx-ecid ctx-rid cs-uri sc-status
+                        bytes
+        oam_policy_mgr1:
+            ListenPort: 14150
+            Machine: oam_Machine_1
+            WebServer:
+                WebServerLog:
+                    LogFileFormat: extended
+                    ELFFields: date time cs-method ctx-ecid ctx-rid cs-uri sc-status
+                        bytes
+    Machine:
+        oam_Machine_1: {}
+    
+resources:
+    StartupClass:
+        WSM Startup Class:
+            ClassName: oracle.wsm.config.WSMServerStartupShutdownProvider
+            Target: oam_policy_mgr1,AdminServer,oam_server1
+        Web Services Startup Class:
+            LoadBeforeAppActivation: true
+            DeploymentOrder: 150
+            LoadBeforeAppDeployments: true
+            ClassName: oracle.j2ee.ws.server.WebServiceServerStartup
+            Target: oam_server1,oam_policy_mgr1,AdminServer
+        JRF Startup Class:
+            LoadBeforeAppActivation: true
+            DeploymentOrder: 110
+            LoadBeforeAppDeployments: true
+            ClassName: oracle.jrf.wls.JRFStartup
+            Target: oam_server1,oam_policy_mgr1,AdminServer
+        ODL-Startup:
+            LoadBeforeAppActivation: true
+            DeploymentOrder: 145
+            LoadBeforeAppDeployments: true
+            ClassName: oracle.core.ojdl.weblogic.ODLConfiguration
+            Target: oam_server1,AdminServer,oam_policy_mgr1
+        DMS-Startup:
+            LoadBeforeAppActivation: true
+            DeploymentOrder: 150
+            LoadBeforeAppDeployments: true
+            ClassName: oracle.dms.wls.DMSStartup
+            Target: oam_server1,oam_policy_mgr1,AdminServer
+        AWT Application Context Startup Class:
+            LoadBeforeAppActivation: true
+            DeploymentOrder: 150
+            LoadBeforeAppDeployments: true
+            ClassName: oracle.jrf.AppContextStartup
+            Target: oam_policy_mgr1,AdminServer,oam_server1
+    ShutdownClass:
+        DMSShutdown:
+            DeploymentOrder: 150
+            ClassName: oracle.dms.wls.DMSShutdown
+            Target: AdminServer,oam_policy_mgr1,oam_server1
+    JDBCSystemResource:
+        WLSSchemaDataSource:
+            JdbcResource:
+                JDBCConnectionPoolParams:
+                    TestTableName: SQL ISVALID
+                    MaxCapacity: 75
+                JDBCDataSourceParams:
+                    GlobalTransactionsProtocol: None
+                    JNDIName: jdbc/WLSSchemaDataSource
+                JDBCDriverParams:
+                    URL: jdbc:oracle:thin:@//localhost:1524/SSO.MYTEST.COM
+                    PasswordEncrypted: '{{ DATASOURCE_PASSWORD }}'
+                    DriverName: oracle.jdbc.OracleDriver
+                    Properties:
+                        user:
+                            Value: DEV_WLS_RUNTIME
+        LocalSvcTblDataSource:
+            Target: AdminServer
+            JdbcResource:
+                JDBCConnectionPoolParams:
+                    InitialCapacity: 0
+                    CapacityIncrement: 1
+                    TestConnectionsOnReserve: true
+                    ConnectionCreationRetryFrequencySeconds: 10
+                    TestTableName: SQL ISVALID
+                    TestFrequencySeconds: 300
+                    SecondsToTrustAnIdlePoolConnection: 0
+                    MaxCapacity: 200
+                JDBCDataSourceParams:
+                    GlobalTransactionsProtocol: None
+                    JNDIName: jdbc/LocalSvcTblDataSource
+                JDBCDriverParams:
+                    URL: jdbc:oracle:thin:@//localhost:1524/SSO.MYTEST.COM
+                    PasswordEncrypted: '{{ DATASOURCE_PASSWORD }}'
+                    DriverName: oracle.jdbc.OracleDriver
+                    Properties:
+                        user:
+                            Value: DEV_STB
+                        oracle.net.CONNECT_TIMEOUT:
+                            Value: '10000'
+                        SendStreamAsBlob:
+                            Value: 'true'
+                        weblogic.jdbc.crossPartitionEnabled:
+                            Value: 'true'
+        opss-data-source:
+            Target: oam_server1,oam_policy_mgr1,AdminServer
+            JdbcResource:
+                JDBCConnectionPoolParams:
+                    TestTableName: SQL ISVALID
+                JDBCDataSourceParams:
+                    GlobalTransactionsProtocol: None
+                    JNDIName: jdbc/OpssDataSource
+                JDBCDriverParams:
+                    URL: jdbc:oracle:thin:@//localhost:1524/SSO.MYTEST.COM
+                    PasswordEncrypted: '{{ DATASOURCE_PASSWORD }}'
+                    DriverName: oracle.jdbc.OracleDriver
+                    Properties:
+                        user:
+                            Value: DEV_OPSS
+        opss-audit-viewDS:
+            Target: AdminServer,oam_server1,oam_policy_mgr1
+            JdbcResource:
+                JDBCConnectionPoolParams:
+                    TestTableName: SQL ISVALID
+                JDBCDataSourceParams:
+                    GlobalTransactionsProtocol: None
+                    JNDIName: jdbc/AuditViewDataSource
+                JDBCDriverParams:
+                    URL: jdbc:oracle:thin:@//localhost:1524/SSO.MYTEST.COM
+                    PasswordEncrypted: '{{ DATASOURCE_PASSWORD }}'
+                    DriverName: oracle.jdbc.OracleDriver
+                    Properties:
+                        user:
+                            Value: DEV_IAU_VIEWER
+        opss-audit-DBDS:
+            Target: oam_policy_mgr1,AdminServer,oam_server1
+            JdbcResource:
+                JDBCConnectionPoolParams:
+                    TestTableName: SQL ISVALID
+                JDBCDataSourceParams:
+                    GlobalTransactionsProtocol: None
+                    JNDIName: jdbc/AuditAppendDataSource
+                JDBCDriverParams:
+                    URL: jdbc:oracle:thin:@//localhost:1524/SSO.MYTEST.COM
+                    PasswordEncrypted: '{{ DATASOURCE_PASSWORD }}'
+                    DriverName: oracle.jdbc.OracleDriver
+                    Properties:
+                        user:
+                            Value: DEV_IAU_APPEND
+        oamDS:
+            Target: oam_policy_mgr1,AdminServer,oam_server1
+            JdbcResource:
+                JDBCConnectionPoolParams:
+                    InitialCapacity: 20
+                    CapacityIncrement: 1
+                    TestConnectionsOnReserve: true
+                    ConnectionCreationRetryFrequencySeconds: 10
+                    TestTableName: SQL SELECT 1 FROM DUAL
+                    TestFrequencySeconds: 300
+                    InactiveConnectionTimeoutSeconds: 300
+                    SecondsToTrustAnIdlePoolConnection: 0
+                    MaxCapacity: 100
+                JDBCDataSourceParams:
+                    JNDIName: jdbc/oamds
+                JDBCDriverParams:
+                    URL: jdbc:oracle:thin:@//localhost:1524/SSO.MYTEST.COM
+                    PasswordEncrypted: '{{ DATASOURCE_PASSWORD }}'
+                    DriverName: oracle.jdbc.OracleDriver
+                    Properties:
+                        user:
+                            Value: DEV_OAM
+                        oracle.net.CONNECT_TIMEOUT:
+                            Value: '10000'
+    WLDFSystemResource:
+        Module-FMWDFW:
+            Description: Creates FMWDFW incidents based on unchecked Exceptions and
+                critical errors
+            Target: AdminServer,oam_policy_mgr1,oam_server1
+            WLDFResource:
+                WatchNotification:
+                    JMXNotification:
+                        FMWDFW-notification:
+                            NotificationType: oracle.dfw.wldfnotification
+                    Watch:
+                        UncheckedException:
+                            RuleType: Log
+                            AlarmResetPeriod: 30000
+                            RuleExpression: (log.severityString == 'Error') and ((log.messageId
+                                == 'WL-101020') or (log.messageId == 'WL-101017')
+                                or (log.messageId == 'WL-000802') or (log.messageId
+                                == 'BEA-101020') or (log.messageId == 'BEA-101017')
+                                or (log.messageId == 'BEA-000802'))
+                            Notification: FMWDFW-notification
+                            AlarmType: AutomaticReset
+                            ExpressionLanguage: EL
+                        Deadlock:
+                            RuleType: Log
+                            AlarmResetPeriod: 30000
+                            RuleExpression: ((log.severityString == 'Critical') or
+                                (log.severityString == 'Info')) and ((log.messageId
+                                == 'WL-000394') or (log.messageId == 'BEA-000394'))
+                            Notification: FMWDFW-notification
+                            AlarmType: AutomaticReset
+                            ExpressionLanguage: EL
+                        StuckThread:
+                            RuleType: Log
+                            AlarmResetPeriod: 600000
+                            RuleExpression: (log.severityString == 'Error') and ((log.messageId
+                                == 'WL-000337') or (log.messageId == 'BEA-000337'))
+                            Notification: FMWDFW-notification
+                            AlarmType: AutomaticReset
+                            ExpressionLanguage: EL
+                        HeapSpace:
+                            RuleType: Log
+                            AlarmResetPeriod: 1800000
+                            RuleExpression: ((log.severityString == 'Critical') or
+                                (log.severityString == 'Warning')) and ((log.messageId
+                                == 'WL-310003') or (log.messageId == 'BEA-310003'))
+                            Notification: FMWDFW-notification
+                            AlarmType: AutomaticReset
+                            ExpressionLanguage: EL
+    CoherenceClusterSystemResource:
+        defaultCoherenceCluster:
+            Target: oam_server1,oam_policy_mgr1
+            CoherenceResource:
+                CoherenceClusterParams:
+                    ClusterListenPort: 7574
+appDeployments:
+    Library:
+        owasp.esapi#2.0@12.2.1:
+            SourcePath: '@@ORACLE_HOME@@/oracle_common/modules/oracle.owasp/owasp-esapi.jar'
+            StagingMode: nostage
+            Target: oam_policy_mgr1,AdminServer,oam_server1
+        jsf#2.0@1.0.0.0_2-2-8:
+            SourcePath: '@@WL_HOME@@/common/deployable-libraries/jsf-2.0.war'
+            ModuleType: war
+            StagingMode: nostage
+            Target: oam_policy_mgr1,AdminServer,oam_server1
+        jstl#1.2@1.2.0.1:
+            SourcePath: '@@WL_HOME@@/common/deployable-libraries/jstl-1.2.war'
+            ModuleType: war
+            StagingMode: nostage
+            Target: oam_server1,oam_policy_mgr1,AdminServer
+        ohw-rcf#5@12.2.1.3.0:
+            SourcePath: '@@ORACLE_HOME@@/oracle_common/modules/oracle.help/ohj.jar'
+            ModuleType: war
+            StagingMode: nostage
+            Target: oam_server1,AdminServer,oam_policy_mgr1
+        ohw-uix#5@12.2.1.3.0:
+            SourcePath: '@@ORACLE_HOME@@/oracle_common/modules/oracle.help/oracle_ice.jar'
+            ModuleType: war
+            StagingMode: nostage
+            Target: oam_server1,oam_policy_mgr1,AdminServer
