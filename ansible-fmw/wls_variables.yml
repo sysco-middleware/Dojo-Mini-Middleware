@@ -16,7 +16,11 @@ JDK_DIR: '{{ JAVA_DIR }}/jdk1.8.0_331'
 JAVA_HOME: '{{ JAVA_DIR }}/java_latest'
 
 ## Oracle ENV Variables
+<<<<<<< HEAD
 ORACLE_BASE: "/home/{{ WLS_USER }}/FMW"
+=======
+ORACLE_BASE: "/home/{{ WLS_USER }}/wls-lite"
+>>>>>>> develop
 ORACLE_HOME: '{{ ORACLE_BASE }}/product/{{ WLS_VERSION }}'
 MW_INSTALLER_DIR: '{{ ORACLE_BASE }}/installers'
 OPATCH_HOME: '{{ ORACLE_HOME}}/OPatch'

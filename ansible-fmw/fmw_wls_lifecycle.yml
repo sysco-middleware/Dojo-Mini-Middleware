@@ -25,11 +25,7 @@
         
         - name: Load server details
           command: cat '{{ CONFIG_HOME}}/serverDetails.txt'
-          register: servers
-
-        - name: Debug
-          debug: var=servers.stdout 
-
+          register: servers 
       
     - name: Lifecycle stop
       tags: stop
