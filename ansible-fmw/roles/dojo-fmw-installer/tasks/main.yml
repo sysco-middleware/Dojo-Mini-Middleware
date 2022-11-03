@@ -8,8 +8,8 @@
     mode: 0755
   with_items:
     - '{{ ORACLE_HOME }}'
-    - '{{ FMW_INSTALLATION_BINARY }}'
-
+    - '{{ MW_INSTALLER_DIR }}'
+      #FMW_INSTALLATION_BINARY
 - name: Copy the binaries
   copy:
     src: '{{ playbook_dir }}/files/{{ FMW_INSTALLATION_BINARY }}'

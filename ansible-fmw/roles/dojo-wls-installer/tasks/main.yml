@@ -1,14 +1,14 @@
 ---
-- name: Create required directories
-  file:
-    path: '{{ item }}'
-    owner: '{{ WLS_USER }}'
-    group: '{{ WLS_GROUP }}'
-    state: directory
-    mode: 0755
-  with_items:
-    - '{{ ORACLE_HOME }}'
-    - '{{ WLS_INSTALLATION_BINARY }}'
+#- name: Create required directories
+#  file:
+#    path: '{{ item }}'
+#    owner: '{{ WLS_USER }}'
+#    group: '{{ WLS_GROUP }}'
+#    state: directory
+#    mode: 0755
+#  with_items:
+#     - '{{ ORACLE_HOME }}'
+#     - '{{ WLS_INSTALLATION_BINARY }}'
 
 - name: Copy the binaries
   copy:

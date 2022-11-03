@@ -1,6 +1,6 @@
 ---
 - name: Play to start the services of WLS domain
-  hosts: dojoserver
+  hosts: oci_dev
   become: true
   become_user: "{{ WLS_USER }}"
   vars_files:

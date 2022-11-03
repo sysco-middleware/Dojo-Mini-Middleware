@@ -1,6 +1,6 @@
 ---
 - name: Domain creation using WDT
-  hosts: dojoserver
+  hosts: oci_dev
   vars_files:
     - '{{ playbook_dir }}/wls_variables.yml'
   any_errors_fatal: true
