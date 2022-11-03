@@ -1,12 +1,13 @@
 ---
 - name: Domain creation using WDT
   hosts: dojoserver
+  become: yes
+  become_user: "{{ WLS_USER }}"
   vars_files:
     - '{{ playbook_dir }}/wls_variables.yml'
   any_errors_fatal: true
   gather_facts: true
-  become: yes
-  become_user: "{{ WLS_USER }}"
+  
 
   # NB! ensure that you installed the WDT collection!
   # ansible-galaxy collection install zeusbaba.wdt

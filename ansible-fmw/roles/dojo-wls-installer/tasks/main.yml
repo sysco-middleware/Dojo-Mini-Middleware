@@ -32,8 +32,8 @@
     group: '{{ WLS_GROUP }}'
 
 - name: Install WLS
-  become: yes
-  become_user: '{{WLS_USER}}'
+  become: true
+  become_user: '{{ WLS_USER }}'
   shell:
     ## -logLevel finest -debug - If you want debug log on WLS side
-    "{{ JAVA_HOME }}/bin/java -jar {{ MW_INSTALLER_DIR }}/{{ WLS_INSTALLATION_BINARY }} -silent -responseFile {{ORACLE_BASE}}/response -invPtrLoc {{ORACLE_BASE}}/oraInst ORACLE_HOME={{ORACLE_HOME}}"
+    "{{ JAVA_HOME }}/bin/java -jar {{ MW_INSTALLER_DIR }}/{{ WLS_INSTALLATION_BINARY }} -silent -responseFile {{ ORACLE_BASE }}/response -invPtrLoc {{ ORACLE_BASE }}/oraInst ORACLE_HOME={{ ORACLE_HOME }}"

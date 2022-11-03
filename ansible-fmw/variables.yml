@@ -3,10 +3,11 @@ WLS_VERSION: "12.2.1.4"
 
 JDK_INSTALLATION_ARCHIVE: "jdk-8u311-linux-x64.tar.gz"
 FMW_INSTALLATION_BINARY: "fmw_12.2.1.4.0_infrastructure.jar"
+WLS_INSTALLATION_BINARY: "fmw_12.2.1.4.0_wls_lite_generic.jar"
 
 ## User Info
 WLS_USER: "dojowls"
-WLS_GROUP: "dojowls"
+WLS_GROUP: "dojo"
 
 
 ## JDK Variables

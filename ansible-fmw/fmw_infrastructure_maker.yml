@@ -1,9 +1,12 @@
 ---
 - name: Install and Configure Fusion Middleware (FMW)
   hosts: dojoserver
+  become: yes
+  become_user: "{{ WLS_USER }}"
+
   vars_files:
     - '{{ playbook_dir }}/variables.yml'
   roles:
     - dojo-jdk-installer
     - dojo-fmw-installer
-#    - WLS_Domain_Create
+#    - dojo-wls-installer

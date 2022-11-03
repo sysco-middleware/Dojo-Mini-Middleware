@@ -28,7 +28,7 @@
     creates: '{ { JDK_DIR } }'
 
 - name: Create java_latest SymLink
-  become: yes
+  become: true
   become_user: '{{ WLS_USER }}'
   file:
     src: '{{ JDK_DIR }}'
