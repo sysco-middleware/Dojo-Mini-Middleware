@@ -3,7 +3,7 @@
 ## How-to
 Clone the repo
 
-Update the playbook - **fmw_install.yml**
+Update the playbook - **fmw_infrastructure.yml**
 
     - update the hosts field
     - comment / uncomment the roles required \
@@ -15,7 +15,7 @@ Copy the FMW jar and JDK file under the  **files** directory
 
     example:
     - fmw_12.2.1.4.0_infrastructure.jar
-    - jdk-8u202-linux-x64.tar.gz
+    - jdk-8u311-linux-x64.tar.gz
 
 Update the vaiables in  **variables.yml** file 
 
