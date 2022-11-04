@@ -29,15 +29,12 @@ DOMAIN_LOGS_DIR: "/home/{{ WLS_USER }}"
 
 WDT_HOME: "/home/{{ WLS_USER }}/weblogic-deploy"
 WDT_TEMPLATES_HOME: "/home/{{ WLS_USER }}/wdt-templates"
+# NB! change if you want to override which WDT version will be installed
+# See https://github.com/oracle/weblogic-deploy-tooling/releases
+WDT_VERSION: "2.4.1" # "1.9.20"
 
 WEBLOGIC_USERNAME: "weblogic"
 WEBLOGIC_PASSWORD: "welcome123"
 
 DOMAIN_HOME: '{{ ORACLE_BASE }}/config/Domains'
 APPLICATIONS_HOME: '{{ ORACLE_BASE }}/config/applications'
-
-## DB Details # NB! no need for now
-#DB_CONN_STRING: "dbserver_name:dbserver_port:dbserver_service"
-#SYSDBA_PASSWORD: ""
-#DATASOURCE_PASSWORD: ""
-#SCHEMA_PREFIX: "dev"

@@ -1,6 +1,6 @@
 ---
 - name: Domain creation using WDT
-  hosts: dojoserver
+  hosts: dojoserver3
   become: yes
   become_user: "{{ WLS_USER }}"
   vars_files:
@@ -10,7 +10,8 @@
   
 
   # NB! ensure that you installed the WDT collection!
-  # ansible-galaxy collection install zeusbaba.wdt
+  # ansible-galaxy collection install git+https://github.com/zeusbaba/ansible-collection-wdt
+  # (alternatively) ansible-galaxy collection install zeusbaba.wdt
   collections:
     - zeusbaba.wdt
   roles:
@@ -38,9 +39,7 @@
       import_role:
         name: wdt_setup
       vars:
-        # NB! change if you want to override which WDT version will be installed
-        # See https://github.com/oracle/weblogic-deploy-tooling/releases
-        wdt_distribution_version: "2.2.0"
+        wdt_distribution_version: "{{ WDT_VERSION }}"
         wdt_user: "{{ WLS_USER }}"
         wdt_group: "{{ WLS_GROUP }}"
         wdt_home: "{{ WDT_HOME }}"

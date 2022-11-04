@@ -46,9 +46,10 @@ $(ORACLE_BASE)
 
 ### Domain creation using WDT 
 Use this collection [zeusbaba.wdt](https://galaxy.ansible.com/zeusbaba/wdt) from Ansible Galaxy  
-NB! first and foremost; make sure that collection is installed!
+NB! first and foremost; make sure that collection is installed!  
+it is better to install from GitHub repo so that you have the latest & greatest updates  
 ```
-ansible-galaxy collection install zeusbaba.wdt    
+ansible-galaxy collection install git+https://github.com/zeusbaba/ansible-collection-wdt    
 ```
 now go ahead with more  
 ```
@@ -75,3 +76,11 @@ Life cycle currently suppport below operations:
 ` ansible-playbook fmw_wls_lifecycle.yml --tags=stopAdmin`
 * Stop NodeManager server individually
 ` ansible-playbook fmw_wls_lifecycle.yml --tags=stopNodeManager`
+
+
+### Tips & Tricks  
+How to create ssh tunnel so that you access Weblogic console?   
+```
+ssh -L 7001:127.0.0.1:7001 firstname.surname@DOJO_IP -i ~/.ssh/your_ssh_key
+```
+now you can access the console simply via `http://localhost:7001/console`  

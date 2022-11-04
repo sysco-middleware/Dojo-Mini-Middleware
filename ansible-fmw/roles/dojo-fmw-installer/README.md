@@ -10,7 +10,7 @@ Copy the FMW binary file under the  **files** directory
 
 Role Variables
 --------------
-Below are the variables used by the role and they should be defined in the **variables.yml** file.
+Below are the variables used by the role, and they should be defined in the **variables.yml** file.
 
     ORACLE_BASE: "/home/dojowls"
     ORACLE_HOME: '{{ ORACLE_BASE }}/product/{{ WLS_VERSION }}'
