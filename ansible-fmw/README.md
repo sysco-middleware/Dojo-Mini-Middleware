@@ -63,8 +63,8 @@ dojoserver ansible_host=FIXME_IP ansible_ssh_user=FIXME_USER ansible_ssh_private
 
 Use playbook fmw_wls_lifecycle.yml to automate the lifecycle of WLS.
 Life cycle currently suppport below operations:
-* Start Admin server & start nodemanager combinedly 
-` ansible-playbook fmw_wls_lifecycle.yml --tags=start`
+* Start 
+
 * Start Admin server individually
 ` ansible-playbook fmw_wls_lifecycle.yml --tags=startAdmin`
 * Start NodeManager server individually

@@ -1,0 +1,51 @@
+---
+- name: Domain update using WDT
+  hosts: dojoserver
+  become: yes
+  become_user: "{{ WLS_USER }}"
+  vars_files:
+    - '{{ playbook_dir }}/wls_variables.yml'
+  any_errors_fatal: true
+  gather_facts: true
+  
+  collections:
+    - zeusbaba.wdt
+  roles:
+    #- wdt_setup
+    #- wdt_createdomain
+    - wdt_updatedomain
+
+
+  pre_tasks:
+    - name: ensure that relevant paths are set for bash env
+      blockinfile:
+        path: "{{ item }}"
+        marker: "# {mark} ANSIBLE_MANAGED envs_home"
+        insertafter: EOF # ".*export TBD_HOME.*\n"
+        block: |
+          export JAVA_HOME={{ JAVA_HOME }}
+          export PATH=$JAVA_HOME/bin:$PATH
+          ORACLE_HOME={{ ORACLE_HOME }}
+          export WDT_HOME={{ WDT_HOME }}
+      loop:
+        - "$HOME/.bashrc"
+
+  tasks:
+    - name: "update domain using 'wdt_updatedomain role'"
+      import_role:
+        name: wdt_updatedomain
+        
+      vars:
+        # templates to use for this role, NB! must be well structured according to WDT template format
+        wdt_templates: ["WDT_template-baseline.yaml"]
+        wdt_domain_type: "WLS"
+        wdt_user: "{{ WLS_USER }}"
+        wdt_group: "{{ WLS_GROUP }}"
+        wdt_templates_home: "{{ WDT_TEMPLATES_HOME }}"
+        #workdir: "/home/{{ WLS_USER }}"
+        java_home: "{{ JAVA_HOME }}"
+        mw_home: "{{ ORACLE_HOME }}"
+        domain_root: "{{ DOMAIN_HOME }}"
+      tags:
+        - wdt-offline
+        - update-domain
