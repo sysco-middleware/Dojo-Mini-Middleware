@@ -11,8 +11,6 @@
   collections:
     - zeusbaba.wdt
   roles:
-    #- wdt_setup
-    #- wdt_createdomain
     - wdt_updatedomain
 
 
