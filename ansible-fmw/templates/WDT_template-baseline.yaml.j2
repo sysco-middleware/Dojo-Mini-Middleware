@@ -6,16 +6,16 @@ topology:
     AdminServerName: 'dojo-wls-admin-server'
     ProductionModeEnabled: 'true'
     Log:
-        FileCount: 25
+        FileCount: 10
         RotateLogOnStartup: true
         RotationType: bySize
         NumberOfFilesLimited: true
         RedirectStderrToServerLogEnabled: true
         RedirectStdoutToServerLogEnabled: true
 {#  The size (1 - 2097150 kilobytes) that triggers the server to move log messages to a separate file. The default is 500 kilobytes #}
-        FileMinSize: 55000
+        FileMinSize: 44000
         DomainLogBroadcasterBufferSize: 1
-        FileName: dojowlsdomain_update05.log
+        FileName: dojowlsdomain.log
     Cluster:
         'dojo-wls-cluster':
             DynamicServers:
@@ -26,8 +26,8 @@ topology:
                 MaxDynamicClusterSize: '2'
     Server:
         'dojo-wls-admin-server':
-            ListenPort: '7061'
+            ListenPort: '7001'
     ServerTemplate:
         'dojo-wls-cluster-template':
-            ListenPort: '8061'
+            ListenPort: '8001'
             Cluster: 'dojo-wls-cluster'
