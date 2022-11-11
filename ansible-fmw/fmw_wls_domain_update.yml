@@ -1,5 +1,5 @@
 ---
-- name: Domain creation using WDT
+- name: Domain update using WDT
   hosts: dojoserver
   vars_files:
     - '{{ playbook_dir }}/wls_variables.yml'
@@ -13,11 +13,10 @@
   collections:
     - zeusbaba.wdt
   roles:
-    - wdt_setup
-    - wdt_createdomain
+    - wdt_updatedomain
 
   pre_tasks:
-    - name: ensure that relevant paths are set for bash env
+    - name: Ensure that relevant paths are set for bash env
       blockinfile:
         path: "{{ item }}"
         marker: "# {mark} ANSIBLE_MANAGED envs_home"
@@ -31,38 +30,21 @@
         - "$HOME/.bashrc"
 
   tasks:
-
-    - name: "setup WDT binaries using 'WDT_setup role'"
+    - name: "Update domain using 'wdt_updatedomain role'"
       import_role:
-        name: wdt_setup
-      vars:
-        # NB! change if you want to override which WDT version will be installed
-        # See https://github.com/oracle/weblogic-deploy-tooling/releases
-        wdt_distribution_version: "2.2.0"
-        wdt_user: "{{ WLS_USER }}"
-        wdt_group: "{{ WLS_GROUP }}"
-        wdt_home: "{{ WDT_HOME }}"
-        wdt_templates_home: "{{ WDT_TEMPLATES_HOME }}"
-      tags:
-        - wdt-offline
-        - setup
-
-    - name: "Create new domain using 'WDT_createDomain role'"
-      import_role:
-        name: wdt_createdomain
+        name: wdt_updatedomain
       vars:
         # templates to use for this role, NB! must be well structured according to WDT template format
-        wdt_templates: ["WDT_template-baseline.yaml"]
+        wdt_templates: ["WDT_template-ldapProviders.yaml"]
         # to create more complex domain type definitions, see https://oracle.github.io/weblogic-deploy-tooling/userguide/tools-config/domain_def/
         wdt_domain_type: "WLS"
         wdt_user: "{{ WLS_USER }}"
         wdt_group: "{{ WLS_GROUP }}"
         wdt_templates_home: "{{ WDT_TEMPLATES_HOME }}"
-        #workdir: "/home/{{ WLS_USER }}"
         java_home: "{{ JAVA_HOME }}"
         mw_home: "{{ ORACLE_HOME }}"
-        domain_root: "{{ DOMAIN_HOME }}"
-
+        domain_root: "{{ DOMAIN_HOME }}/{{ DOMAIN_NAME }}"
+        domain_home: "{{ DOMAIN_HOME }}/{{ DOMAIN_NAME }}"
       tags:
         - wdt-offline
-        - create-domain
+        - update-domain

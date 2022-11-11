@@ -1,6 +1,8 @@
 ## General Info
 WLS_VERSION: "12.2.1.4"
+HOST_IP: "127.0.0.1"
 
+## Installation file's
 JDK_INSTALLATION_ARCHIVE: "jdk-8u331-linux-x64.tar.gz"
 WLS_INSTALLATION_BINARY: "fmw_12.2.1.4.0_wls_lite_generic.jar"
 
@@ -8,14 +10,21 @@ WLS_INSTALLATION_BINARY: "fmw_12.2.1.4.0_wls_lite_generic.jar"
 WLS_USER: "dojowls"
 WLS_GROUP: "dojo"
 
+## Set ORACLE_BASE
+ORACLE_BASE: "/home/{{ WLS_USER }}/oracle"
+
+## set DOMAIN_NAME
+DOMAIN_NAME: "dojowlsdomain"
+
+## JDK VERSION
+JDK_VERSION: "jdk1.8.0_311"
 
 ## JDK Variables
 JAVA_DIR: '{{ ORACLE_BASE }}/java'
-JDK_DIR: '{{ JAVA_DIR }}/jdk1.8.0_331'
+JDK_DIR: '{{ JAVA_DIR }}/{{ JDK_VERSION }}'
 JAVA_HOME: '{{ JAVA_DIR }}/java_latest'
 
 ## Oracle ENV Variables
-ORACLE_BASE: "/home/{{ WLS_USER }}/wls-lite"
 ORACLE_HOME: '{{ ORACLE_BASE }}/product/{{ WLS_VERSION }}'
 MW_INSTALLER_DIR: '{{ ORACLE_BASE }}/installers'
 
@@ -24,20 +33,20 @@ INSTALL_TYPE: WebLogic Server
 DECLINE_AUTO_UPDATES: True  # OPTIONS: True / False
 
 ## Domain Creation
-DOMAIN_NAME: "dojowlsdomain"
 DOMAIN_LOGS_DIR: "/home/{{ WLS_USER }}"
 
+## WDT Setup
 WDT_HOME: "/home/{{ WLS_USER }}/weblogic-deploy"
 WDT_TEMPLATES_HOME: "/home/{{ WLS_USER }}/wdt-templates"
 
+## Default username and password
 WEBLOGIC_USERNAME: "weblogic"
 WEBLOGIC_PASSWORD: "welcome123"
 
+## Domain Creation
 DOMAIN_HOME: '{{ ORACLE_BASE }}/config/Domains'
 APPLICATIONS_HOME: '{{ ORACLE_BASE }}/config/applications'
 
-## DB Details # NB! no need for now
-#DB_CONN_STRING: "dbserver_name:dbserver_port:dbserver_service"
-#SYSDBA_PASSWORD: ""
-#DATASOURCE_PASSWORD: ""
-#SCHEMA_PREFIX: "dev"
+## Update Domain offline using collections - zeusbaba.wdt with role as wdt_updatedomain
+run_wdt_action: "update-domain-offline"
+

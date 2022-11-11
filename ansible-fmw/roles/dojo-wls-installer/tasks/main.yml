@@ -1,4 +1,8 @@
 ---
+- name: Update permission to access "dojowls"
+  become: yes
+  shell:
+    'chmod g+rwx "/home/dojowls"'
 - name: Create required directories
   file:
     path: '{{ item }}'
