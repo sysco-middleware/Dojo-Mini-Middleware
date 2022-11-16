@@ -5,6 +5,8 @@
   become_user: "{{ WLS_USER }}"
   vars_files:
     - '{{ playbook_dir }}/wls_variables.yml'
+  vars:
+    run_wdt_action: "update-domain-offline"
   any_errors_fatal: true
   gather_facts: true
   
@@ -44,6 +46,7 @@
         java_home: "{{ JAVA_HOME }}"
         mw_home: "{{ ORACLE_HOME }}"
         domain_root: "{{ DOMAIN_HOME }}"
+        domain_home: "{{ DOMAIN_HOME }}/{{ DOMAIN_NAME }}"
       tags:
         - wdt-offline
         - update-domain
